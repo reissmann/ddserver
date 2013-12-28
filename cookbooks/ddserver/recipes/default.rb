@@ -69,7 +69,6 @@ if platform?("redhat", "centos")
 
     # This should be done by the ddserver installer
     template "/etc/init.d/ddserver" do
-        not_if { ::File.exists?("/etc/init.d/ddserver") }
         source "ddserver.init.erb"
         owner "root"
         group "root"
