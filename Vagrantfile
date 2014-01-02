@@ -10,12 +10,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "CentOS-6.5-x86_64-python27"
+  config.vm.box = "CentOS-6-x86_64-python27"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
-  config.vm.box_url = "http://mirror.informatik.hs-fulda.de/pub/vagrant/CentOS-6.5-x86_64-python27.box"
+  config.vm.box_url = "http://mirror.informatik.hs-fulda.de/pub/vagrant/CentOS-6-x86_64-python27.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
