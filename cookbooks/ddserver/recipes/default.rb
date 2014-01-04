@@ -45,7 +45,7 @@ if platform?("redhat", "centos")
       cwd "/usr/local/src"
       user "root"
       code <<-EOH
-        git clone https://github.com/reissmann/ddserver.git
+        git clone https://github.com/ddserver/ddserver.git
       EOH
     end
 
@@ -64,7 +64,7 @@ if platform?("redhat", "centos")
         source "ddserver.conf.erb"
         owner "root"
         group "root"
-        mode "0640"
+        mode "0644"
     end
 
     # This should be done by the ddserver installer
@@ -73,6 +73,15 @@ if platform?("redhat", "centos")
         owner "root"
         group "root"
         mode "0755"
+    end
+
+    bash "init ddserver logfile" do
+      cwd "/root"
+      user "root"
+      code <<-EOH
+        touch /var/log/ddserver.log
+        chmod 777 /var/log/ddserver.log
+      EOH
     end
 
     # Enable ddserver on system boot and start
@@ -95,4 +104,64 @@ if platform?("redhat", "centos")
         /usr/bin/mysql -u root --password=secret -e "FLUSH PRIVILEGES;"
       EOH
     end
+
+    # add epal repo (needed to install pdns)
+    bash "install epel" do
+      cwd "/root"
+      user "root"
+      code <<-EOH
+        rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+        yum -y update
+      EOH
+    end
+
+    # Install powerdns server
+    execute "install mysql database server and libraries" do
+      command "yum install -y pdns pdns-backend-pipe"
+      action :run
+    end
+
+    # configure PYTHON_EGG_CACHE
+    bash "configuring PYTHON_EGG_CACHE" do
+      cwd "/root"
+      user "root"
+      code <<-EOH
+        mkdir /tmp/.python_eggs
+        chmod 777 /tmp/.python_eggs
+        echo export PYTHON_EGG_CACHE=/tmp/.python_eggs >> /etc/environment
+      EOH
+    end
+
+    # use a pdns init script that knows about PYTHON_EGG_CACHE
+    template "/etc/init.d/pdns" do
+        source "pdns.init.erb"
+        owner "root"
+        group "root"
+        mode "0755"
+    end
+
+    # Set pdns configuration to use pipe backend with ddserver
+    template "/etc/pdns/pdns.conf" do
+        source "pdns.conf.erb"
+        owner "root"
+        group "root"
+        mode "0600"
+    end
+
+    # Enable powerdns on system boot and start
+    service "pdns" do
+        supports :status => true, :restart => true
+        action [ :enable]
+    end
+
+    # start pdns server
+    bash "starting pdns" do
+      cwd "/root"
+      user "root"
+      code <<-EOH
+        /etc/init.d/pdns start
+      EOH
+    end
+
  end
