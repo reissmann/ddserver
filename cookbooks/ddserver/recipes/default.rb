@@ -45,7 +45,9 @@ if platform?("redhat", "centos")
       cwd "/usr/local/src"
       user "root"
       code <<-EOH
-        git clone https://github.com/ddserver/ddserver.git
+        git clone #{node[:ddserver][:giturl]} && \
+        cd ddserver && \
+        git checkout #{node[:ddserver][:branch]}
       EOH
     end
 

@@ -131,6 +131,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :chef_solo do |chef|
+    chef.json = {
+      :ddserver => {
+        :giturl => "https://github.com/ddserver/ddserver.git"
+      },
+      :ddserver => {
+        :branch => "master"
+      }
+    }
     chef.cookbooks_path = "cookbooks"
     chef.add_recipe "ddserver"
     chef.add_recipe "powerdns"

@@ -20,3 +20,5 @@
 default['ddserver']['dbuser'] = 'ddserver'
 default['ddserver']['dbpass'] = 'ddsecret'
 default['ddserver']['dbname'] = 'ddserver'
+default['ddserver']['giturl'] = 'https://github.com/ddserver/ddserver.git'
+default['ddserver']['branch'] = 'master'
