@@ -21,10 +21,10 @@ The project page: https://ddserver.0x80.io/
 
 Requirements:
 -------------
-- VirtualBox > 4.2 [1]
-- Vagrant > 1.4 [2]
-- Git [3]
-- *nix based operating system
+- VirtualBox > 4.2 (http://www.virtualbox.org)
+- Vagrant > 1.4 (http://www.vagrantup.com)
+- Git (http://www.git-scm.com)
+- *nix based operating system is preferred
 
 By default the virtual machine uses a no-worry private NAT network interface. To give you access to the virtual machine services there are some preconfigured port forwardings.
 
@@ -70,17 +70,13 @@ Customization through Vagrantfile
 ---------------------------------
 If you want to run your Vagrant with a different branch or a fork of ddserver you can configure git repository URL through the Vagrantfile by changing the giturl and branch parameter
 
-  chef.json = {
-    :ddserver => {
-      :giturl => "https://github.com/ddserver/ddserver.git"
-    },
-    :ddserver => {
-      :branch => "master"
+    chef.json = {
+      :ddserver => {
+        :giturl => "https://github.com/ddserver/ddserver.git"
+      },
+      :ddserver => {
+        :branch => "master"
+      }
     }
-  }
 
 gl & hf
-
-[1] http://www.virtualbox.org/
-[2] http://www.vagrantup.com/
-[3] http://www.git-scm.com/
