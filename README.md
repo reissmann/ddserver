@@ -34,9 +34,7 @@ By default the virtual machine uses a no-worry private NAT network interface. To
 Usage:
 ------
 1. Install VirtualBox and Vagrant on your computer
-2. Checkout this repository with
-   git clone https://github.com/ddserver/ddserver.git
-   
+2. Checkout this repository with git clone https://github.com/ddserver/ddserver.git
 3. Change into vagrant-ddserver
 4. Run vagrant up to start the virtual machine
 5. Connect in your browser to http://localhost:8080
