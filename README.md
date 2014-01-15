@@ -41,9 +41,7 @@ Usage:
 
 Under the hood
 --------------
-The Vagrantfile allows you to control the behavior of your virtual machine. On your first run Vagrant will download a Vagrant basebox based on a minimal Centos 6.5 with pre-installed Python 2.7. from the following URL
-
-  "http://mirror.informatik.hs-fulda.de/pub/vagrant/CentOS-6-x86_64-python27.box"
+The Vagrantfile allows you to control the behavior of your virtual machine. On your first run Vagrant will download a Vagrant basebox based on a minimal Centos 6.5 with pre-installed Python 2.7. from the following location: http://mirror.informatik.hs-fulda.de/pub/vagrant/CentOS-6-x86_64-python27.box
 
 Based on this machine a setup of ddserver and PowerDNS will be executed through Chef recipes. In detail:
 
