@@ -28,8 +28,9 @@ Requirements:
 
 By default the virtual machine uses a no-worry private NAT network interface. To give you access to the virtual machine services there are some preconfigured port forwardings.
 
- - TCP guest 8080 to your host 8080
- - UDP guest 53 to your host 5353
+- TCP guest 8080 to your host 8080
+- UDP guest 53 to your host 5353
+- TCP guest 22 to your host 2222 for SSH access you can also just run `vagrant ssh`
 
 Usage:
 ------
@@ -38,6 +39,7 @@ Usage:
 3. Change into vagrant-ddserver
 4. Run `vagrant up` to start the virtual machine
 5. Connect in your browser to http://localhost:8080
+6. Username is `vagrant` with password `vagrant` you can get root access with `sudo -i`
 
 Under the hood
 --------------
