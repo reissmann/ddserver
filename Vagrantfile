@@ -133,9 +133,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :chef_solo do |chef|
     chef.json = {
       :ddserver => {
-        :giturl => "https://github.com/ddserver/ddserver.git"
-      },
-      :ddserver => {
+        :giturl => "https://github.com/ddserver/ddserver.git",
         :branch => "master"
       }
     }
