@@ -1,4 +1,4 @@
-# Install deserver from source
+# Install ddserver from source
 
 ## Platform:
 
