@@ -10,12 +10,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "CentOS-6-x86_64-python27"
+  config.vm.box = "DebianJessie"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   # config.vm.box_url = "http://domain.com/path/to/above.box"
-  config.vm.box_url = "http://mirror.informatik.hs-fulda.de/pub/vagrant/CentOS-6-x86_64-python27.box"
+  config.vm.box_url = "http://dump.0x80.io/DebianJessie.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "salt/roots", "/srv/salt"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -126,19 +126,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |vb|
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
-    # vb.gui = true
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    #vb.gui = true
   end
 
-  config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      :ddserver => {
-        :giturl => "https://github.com/ddserver/ddserver.git",
-        :branch => "master"
-      }
-    }
-    chef.cookbooks_path = "cookbooks"
-    chef.add_recipe "ddserver"
-    chef.add_recipe "powerdns"
+  config.vm.provision :salt do |salt|
+    salt.masterless = true
+    salt.minion_config = "salt/etc/minion"
+    salt.run_highstate = true
   end
 end

@@ -1,0 +1,12 @@
+$ORIGIN ddserver.example.org.
+$TTL 3600
+
+@					IN	SOA		ns.ddserver.example.org. hostmaster.ddserver.example.org. (
+								2342420038 ; serial
+								43200      ; refresh (12 hours)
+								7200       ; retry (2 hours)
+								604800     ; expire (1 week)
+								43200      ; minimum (12 hours)
+								)
+
+@			3600	IN	NS		ns.ddserver.example.org.
